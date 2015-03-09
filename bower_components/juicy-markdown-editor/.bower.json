@@ -1,0 +1,36 @@
+{
+  "name": "juicy-markdown-view",
+  "version": "0.0.1",
+  "homepage": "https://github.com/Juicy/juicy-markdown-editor",
+  "authors": [
+    "andwah <anders.wahlgren@societyobjects.com>",
+    "Tomek Wytrebowicz <tomalecpub@gmail.com>"
+  ],
+  "description": "Polymer Element with GitHub Flavored Markdown (GFM) editor with file drop and paste functionality",
+  "license": "MIT",
+  "main": "juicy-markdown-editor.html",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "index.html",
+    "preview.png"
+  ],
+  "dependencies": {
+    "polymer": "polymer/polymer#~0.3.4",
+    "juicy-markdown": "*",
+    "juicy-filedrop": "*"
+  },
+  "_release": "0.0.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.0.1",
+    "commit": "83d7e1cc52041d31b50965f686f16a82db22da69"
+  },
+  "_source": "git://github.com/Juicy/juicy-markdown-editor.git",
+  "_target": "~0.0.1",
+  "_originalSource": "juicy-markdown-editor",
+  "_direct": true
+}

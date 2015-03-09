@@ -1,0 +1,74 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/bower_components/paper-input/paper-autogrow-textarea.html">
+<link rel="import" href="/bower_components/paper-checkbox/paper-checkbox.html">
+ <link rel="import" href="/bower_components/core-icon-button/core-icon-button.html">
+
+ <link rel="import" href="/bower_components/mark-down/mark-down.html">
+
+
+
+
+
+<polymer-element name="input-switch" attributes="active value">
+	<template>
+		<style>
+			:host {
+				display: block;
+				width: 100%;
+			}
+			paper-autogrow-textarea {
+				border: solid black 1px;
+				width: 99.5%;
+				margin: auto;
+
+			}
+			markdown {
+				width: 100%;
+			}
+
+			
+		</style>
+
+		<div vertical layout>
+			<div horizontal layout hidden?="{{active}}">
+				<mark-down flex
+						text="{{value}}"
+						on-click="{{toggleSwitch}}">
+				</mark-down>
+			</div>
+			<div vertical layout hidden?="{{!active}}">
+				<div>
+					<paper-autogrow-textarea rows="2" maxRows="20">
+						<textarea id="inputText"
+								value="{{value}}"></textarea>
+					</paper-autogrow-textarea>
+				</div>
+				<core-icon-button icon="check" 
+						style="text-align: center"
+						on-click="{{commit}}">
+				</core-icon-button>
+				
+				
+
+			</div>
+
+			
+
+		</div>
+	</template>
+	<script>
+		Polymer({
+			active: false,
+			value: "test",
+
+			commit: function(e, d, s){
+				var textarea = this.$.inputText;
+				this.value = textarea.value
+				this.active = false;
+			},
+			toggleSwitch: function(e, d, s){
+				this.active = true;
+			},
+		});
+	</script>
+</polymer-element>

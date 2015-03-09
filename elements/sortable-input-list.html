@@ -1,0 +1,140 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+
+<link rel="import" href="/bower_components/paper-button/paper-button.html">
+<link rel="import" href="/bower_components/core-icon/core-icon.html">
+<link rel="import" href="/bower_components/core-icon-button/core-icon-button.html">
+<link rel="import" href="/bower_components/sortable-list/sortable-list.html">
+<link rel="import" href="/elements/input-switch.html">
+
+ <polymer-element name="sortable-input-list" attributes="items">
+ 	<template>
+ 		<style>
+	:host {
+		display: block;
+		width: 28%;
+	}
+	.label_container {
+        background: white;
+        border: 1px solid #ddd;
+        border-radius: 3px;
+        margin-bottom: 3px;
+        
+    }
+    paper-checkbox {
+    	margin: 10px 15px 10px 11px;
+    }
+ 		</style>
+		<sortable-list animation="150">
+			<template repeat="{{item in items}}">
+				<div horizontal layout class="label_container">
+						<paper-checkbox layout vertical
+								center-justified
+								on-change="{{toggleCheckedState}}"
+								data-title="{{item.title}}"
+								checked?="{{item.done}}">
+						</paper-checkbox>
+
+					<input-switch value="{{item.title}}"></input-switch>
+					<core-icon-button icon="clear"
+							layout horizontal
+							center-justified
+							center
+							data-title="{{item.title}}"
+							on-click="{{removeItem}}">
+					</core-icon-button>
+				</div>				
+			</template>
+		</sortable-list>
+		<paper-button noink
+				horizontal center-justified layout
+				on-click="{{addItem}}">
+			<core-icon icon="add"></core-icon>
+			Add Item
+		</paper-button>
+				<paper-button noink
+				horizontal center-justified layout
+				on-click="{{removeCheckedItems}}">
+			<core-icon icon="delete"></core-icon>
+			Remove Checked Items
+		</paper-button>
+		
+
+ 	</template>
+ 	<script>
+ 		Polymer({
+ 			items: [
+ 					{title: "wonka", done: false},
+ 					{title: "booth", done: false}
+ 				],
+ 			addItem: function(e, d, s){
+ 				this.items.push({
+ 					title: "newItem",
+ 					done: false // change event will switch
+ 				});
+ 			},
+ 			removeItem: function(e, d, s){
+ 				var title = e.target.dataset.title;
+ 				var items = this.items;
+ 				items.forEach(function(item){
+ 					if (item.title == title){
+ 						var index = items.indexOf(item);
+ 						items.splice(index, 1);
+ 					}
+ 				});
+ 			},
+ 			toggleCheckedState: function(e, d, s){
+ 				var title = e.target.dataset.title;
+ 				var items = this.items;
+ 				items.forEach(function(item){
+					if(item.title === title){
+						item.done = !item.done;
+					};
+					
+ 				});
+ 				e.target.done = e.target.done;
+ 			},
+ 			removeCheckedItems: function(){
+ 				var nodeList = this.shadowRoot.querySelectorAll("paper-checkbox");
+ 				var nodeArray = [];
+ 				for (var i = 0; i < nodeList.length; i++){
+
+ 					nodeArray.push(nodeList[i]);
+ 				}
+ 				
+ 				for (var i = 0; i < nodeArray.length; i++){
+ 					if (nodeArray[i].checked){
+ 						for(var index in this.items){
+ 							console.log("index", index);
+ 							console.log("in second loop", nodeArray[i].dataset.title);
+ 							console.log("item.title", this.items[index].title);
+ 							if(this.items[index].title == nodeArray[i].dataset.title){
+ 								console.log("and a match");
+ 								this.items.splice(index, 1);
+ 							} 
+ 						}
+ 					}
+ 				}
+ 				
+ 				// nodeArray.forEach(function(node){
+ 				// 	if (node.checked){
+ 				// 		for(var items in this.items){
+ 				// 			item.dataset.title;
+ 				// 		}
+ 				// 	}
+ 				// });
+ 				
+ 			// 	console.log('toRemove', toRemove);
+
+ 				
+				// for (var i = 0; i < toRemove.length; i++){
+				// 	console.log("toRemove[i]", toRemove[i]);
+				// 	console.log("items",this.items);
+					
+				// 	this.items.splice(i, 1);
+				// }
+ 			}
+ 		});
+
+		
+ 	</script>
+ </polymer-element>
